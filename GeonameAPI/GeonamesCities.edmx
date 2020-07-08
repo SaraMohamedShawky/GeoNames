@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GeonameAPIContextModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GeoNames">
+          <Key>
+            <PropertyRef Name="geonameid" />
+          </Key>
+          <Property Name="geonameid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="200" />
+          <Property Name="asciiname" Type="nvarchar" MaxLength="200" />
+          <Property Name="alternatenames" Type="nvarchar(max)" />
+          <Property Name="latitude" Type="float" />
+          <Property Name="longitude" Type="float" />
+          <Property Name="feature_class" Type="char" MaxLength="2" />
+          <Property Name="feature_code" Type="nvarchar" MaxLength="10" />
+          <Property Name="country_code" Type="char" MaxLength="3" />
+          <Property Name="cc2" Type="char" MaxLength="60" />
+          <Property Name="admin1_code" Type="nvarchar" MaxLength="20" />
+          <Property Name="admin2_code" Type="nvarchar" MaxLength="80" />
+          <Property Name="admin3_code" Type="nvarchar" MaxLength="20" />
+          <Property Name="admin4_code" Type="nvarchar" MaxLength="20" />
+          <Property Name="population" Type="bigint" />
+          <Property Name="elevation" Type="int" />
+          <Property Name="gtopo30" Type="int" />
+          <Property Name="timezone" Type="char" MaxLength="30" />
+          <Property Name="modification_date" Type="date" />
+        </EntityType>
+        <Function Name="GetSuggestedCities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="term" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="GeonameAPIContextModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeoNames" EntityType="Self.GeoNames" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GeonameAPIContextModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="GeonameAPIContextEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="GeoNames" EntityType="GeonameAPIContextModel.GeoName" />
+          <FunctionImport Name="GetSuggestedCities" EntitySet="GeoNames" ReturnType="Collection(GeonameAPIContextModel.GeoName)">
+          <Parameter Name="term" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="C__MigrationHistory" EntityType="GeonameAPIContextModel.C__MigrationHistory" />
+        </EntityContainer>
+        <EntityType Name="GeoName">
+          <Key>
+            <PropertyRef Name="geonameid" />
+          </Key>
+          <Property Name="geonameid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="asciiname" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="alternatenames" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="latitude" Type="Double" />
+          <Property Name="longitude" Type="Double" />
+          <Property Name="feature_class" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="feature_code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="country_code" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="cc2" Type="String" MaxLength="60" FixedLength="true" Unicode="false" />
+          <Property Name="admin1_code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="admin2_code" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="admin3_code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="admin4_code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="population" Type="Int64" />
+          <Property Name="elevation" Type="Int32" />
+          <Property Name="gtopo30" Type="Int32" />
+          <Property Name="timezone" Type="String" MaxLength="30" FixedLength="true" Unicode="false" />
+          <Property Name="modification_date" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ContextKey" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Model" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <Property Name="ProductVersion" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GeonameAPIContextModelStoreContainer" CdmEntityContainer="GeonameAPIContextEntities" >
+          <EntitySetMapping Name="GeoNames">
+            <EntityTypeMapping TypeName="GeonameAPIContextModel.GeoName">
+              <MappingFragment StoreEntitySet="GeoNames">
+                <ScalarProperty Name="modification_date" ColumnName="modification_date" />
+                <ScalarProperty Name="timezone" ColumnName="timezone" />
+                <ScalarProperty Name="gtopo30" ColumnName="gtopo30" />
+                <ScalarProperty Name="elevation" ColumnName="elevation" />
+                <ScalarProperty Name="population" ColumnName="population" />
+                <ScalarProperty Name="admin4_code" ColumnName="admin4_code" />
+                <ScalarProperty Name="admin3_code" ColumnName="admin3_code" />
+                <ScalarProperty Name="admin2_code" ColumnName="admin2_code" />
+                <ScalarProperty Name="admin1_code" ColumnName="admin1_code" />
+                <ScalarProperty Name="cc2" ColumnName="cc2" />
+                <ScalarProperty Name="country_code" ColumnName="country_code" />
+                <ScalarProperty Name="feature_code" ColumnName="feature_code" />
+                <ScalarProperty Name="feature_class" ColumnName="feature_class" />
+                <ScalarProperty Name="longitude" ColumnName="longitude" />
+                <ScalarProperty Name="latitude" ColumnName="latitude" />
+                <ScalarProperty Name="alternatenames" ColumnName="alternatenames" />
+                <ScalarProperty Name="asciiname" ColumnName="asciiname" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="geonameid" ColumnName="geonameid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetSuggestedCities" FunctionName="GeonameAPIContextModel.Store.GetSuggestedCities" />
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="GeonameAPIContextModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

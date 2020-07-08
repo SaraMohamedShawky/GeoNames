@@ -11,13 +11,13 @@ namespace GeonameAPI
         {
             // Web API configuration and services
 
-            // Web API routes
-            config.MapHttpAttributeRoutes();
+            //// Web API routes
+            config.MapHttpAttributeRoutes(); //Don't miss this
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                defaults: new { id = System.Web.Http.RouteParameter.Optional }
             );
         }
     }
